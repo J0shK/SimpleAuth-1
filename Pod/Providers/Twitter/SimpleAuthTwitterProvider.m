@@ -245,7 +245,7 @@
     // Extra
     dictionary[@"extra"] = @{
         @"raw_info" : remoteAccount,
-        @"account" : systemAccount
+        @"account" : systemAccount.accountDescription
     };
     
     // Profile image
