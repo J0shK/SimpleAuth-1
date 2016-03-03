@@ -122,7 +122,7 @@
 - (NSDictionary *)extraDictionaryWithRemoteAccount:(NSDictionary *)remoteAccount systemAccount:(ACAccount *)systemAccount {
     return @{
         @"raw_info": remoteAccount,
-        @"account": systemAccount.accountDescription
+        @"account": systemAccount.username
     };
 }
 
