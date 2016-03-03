@@ -151,11 +151,9 @@
     dictionary[@"provider"] = [[self class] type];
     
     // Credentials
-    NSTimeInterval expiresAtInterval = [accessToken[@"expires_in"] doubleValue];
-//    NSDate *expiresAtDate = [NSDate dateWithTimeIntervalSinceNow:expiresAtInterval];
     dictionary[@"credentials"] = @{
         @"token" : accessToken[@"access_token"],
-        @"expires_in" : [NSString stringWithFormat:@"%f",expiresAtInterval]
+        @"expires_in" : accessToken[@"expires_in"]
     };
     
     // User ID
