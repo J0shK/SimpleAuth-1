@@ -175,17 +175,36 @@
     if (account[@"email"]) {
         user[@"email"] = account[@"email"];
     }
-    user[@"name"] = account[@"name"];
-    user[@"first_name"] = account[@"first_name"];
-    user[@"last_name"] = account[@"last_name"];
-    user[@"image"] = avatar;
+    if (account[@"name"]) {
+        user[@"name"] = account[@"name"];
+    }
+    
+    if (account[@"first_name"]) {
+        user[@"first_name"] = account[@"first_name"];
+    }
+    
+    if (account[@"last_name"]) {
+        user[@"last_name"] = account[@"last_name"];
+    }
+    
+    if (avatar) {
+        user[@"image"] = avatar;
+    }
+    
     if (location) {
         user[@"location"] = location;
     }
-    user[@"verified"] = account[@"verified"] ?: @NO;
-    user[@"urls"] = @{
-        @"Facebook" : account[@"link"],
-    };
+    
+    if (account[@"verified"]) {
+        user[@"verified"] = account[@"verified"] ?: @NO;
+    }
+    
+    if (account[@"link"]) {
+        user[@"urls"] = @{
+                          @"Facebook" : account[@"link"],
+                          };
+    }
+    
     dictionary[@"info"] = user;
     
     return dictionary;

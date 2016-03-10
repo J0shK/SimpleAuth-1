@@ -159,7 +159,9 @@
                                    };
     
     // User ID
-    dictionary[@"uid"] = account[@"id"];
+    if (account[@"id"]) {
+        dictionary[@"uid"] = account[@"id"];
+    }
     
     // Raw response
     dictionary[@"extra"] = @{
@@ -174,19 +176,36 @@
     if (account[@"email"]) {
         user[@"email"] = account[@"email"];
     }
-    user[@"name"] = account[@"name"];
-    user[@"first_name"] = account[@"given_name"];
-    user[@"last_name"] = account[@"family_name"];
-    user[@"gender"] = account[@"gender"];
+    if (account[@"name"]) {
+        user[@"name"] = account[@"name"];
+    }
+    if (account[@"given_name"]) {
+        user[@"first_name"] = account[@"given_name"];
+    }
+    if (account[@"family_name"]) {
+        user[@"last_name"] = account[@"family_name"];
+    }
+    if (account[@"gender"]) {
+        user[@"gender"] = account[@"gender"];
+    }
     
-    user[@"image"] = account[@"picture"];
+    if (account[@"picture"]) {
+        user[@"image"] = account[@"picture"];
+    }
+    
     if (location) {
         user[@"location"] = location;
     }
-    user[@"verified"] = account[@"verified_email"] ? @YES : @NO;
-    user[@"urls"] = @{
-                      @"Google +" : account[@"link"],
-                      };
+    
+    if (account[@"verified_email"]) {
+        user[@"verified"] = account[@"verified_email"] ? @YES : @NO;
+    }
+    
+    if (account[@"link"]) {
+        user[@"urls"] = @{
+                          @"Google +" : account[@"link"],
+                          };
+    }
     
     dictionary[@"info"] = user;
     

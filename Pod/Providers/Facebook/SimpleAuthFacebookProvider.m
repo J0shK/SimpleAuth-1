@@ -129,11 +129,22 @@
 - (NSDictionary *)infoDictionaryWithRemoteAccount:(NSDictionary *)remoteAccount systemAccount:(ACAccount *)systemAccount {
     NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
 
-    dictionary[@"name"] = remoteAccount[@"name"];
-    dictionary[@"first_name"] = remoteAccount[@"first_name"];
-    dictionary[@"last_name"] = remoteAccount[@"last_name"];
-    dictionary[@"verified"] = remoteAccount[@"verified"] ?: @NO;
-
+    if (remoteAccount[@"name"]) {
+        dictionary[@"name"] = remoteAccount[@"name"];
+    }
+    
+    if (remoteAccount[@"first_name"]) {
+        dictionary[@"first_name"] = remoteAccount[@"first_name"];
+    }
+    
+    if (remoteAccount[@"last_name"]) {
+        dictionary[@"last_name"] = remoteAccount[@"last_name"];
+    }
+    
+    if (remoteAccount[@"verified"]) {
+        dictionary[@"verified"] = remoteAccount[@"verified"] ?: @NO;
+    }
+    
     id email = remoteAccount[@"email"];
     if (email) {
         dictionary[@"email"] = email;
@@ -144,12 +155,17 @@
         dictionary[@"location"] = location;
     }
 
-    dictionary[@"urls"] = @{
-        @"Facebook": remoteAccount[@"link"]
-    };
+    if (remoteAccount[@"link"]) {
+        dictionary[@"urls"] = @{
+                                @"Facebook": remoteAccount[@"link"]
+                                };
+    }
+    
 
     NSString *avatar = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", remoteAccount[@"id"]];
-    dictionary[@"image"] = avatar;
+    if (avatar) {
+        dictionary[@"image"] = avatar;
+    }
 
     return dictionary;
 }

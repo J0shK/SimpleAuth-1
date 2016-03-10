@@ -235,7 +235,9 @@
     };
     
     // User ID
-    dictionary[@"uid"] = account[@"id"];
+    if (account[@"id"]) {
+        dictionary[@"uid"] = account[@"id"];
+    }
     
     // Extra
     dictionary[@"extra"] = @{
@@ -255,12 +257,30 @@
     
     // User info
     NSMutableDictionary *user = [NSMutableDictionary new];
-    user[@"nickname"] = account[@"screen_name"];
-    user[@"name"] = account[@"name"];
-    user[@"location"] = account[@"location"];
-    user[@"image"] = avatar;
-    user[@"description"] = account[@"description"];
-    user[@"urls"] = URLs;
+    if (account[@"screen_name"]) {
+        user[@"nickname"] = account[@"screen_name"];
+    }
+    
+    if (account[@"name"]) {
+        user[@"name"] = account[@"name"];
+    }
+    
+    if (account[@"location"]) {
+        user[@"location"] = account[@"location"];
+    }
+    
+    if (avatar) {
+        user[@"image"] = avatar;
+    }
+    
+    if (account[@"description"]) {
+        user[@"description"] = account[@"description"];
+    }
+    
+    if (URLs) {
+        user[@"urls"] = URLs;
+    }
+    
     dictionary[@"info"] = user;
     
     return dictionary;

@@ -240,7 +240,9 @@
     };
     
     // User ID
-    dictionary[@"uid"] = remoteAccount[@"id"];
+    if (remoteAccount[@"id"]) {
+        dictionary[@"uid"] = remoteAccount[@"id"];
+    }
     
     // Extra
     dictionary[@"extra"] = @{
@@ -257,15 +259,34 @@
     
     // User info
     NSMutableDictionary *user = [NSMutableDictionary new];
-    user[@"nickname"] = remoteAccount[@"screen_name"];
-    user[@"name"] = remoteAccount[@"name"];
-    user[@"location"] = remoteAccount[@"location"];
-    user[@"image"] = avatar;
-    user[@"description"] = remoteAccount[@"description"];
-    user[@"urls"] = @{
-        @"Twitter" : profile,
-        @"Website" : remoteAccount[@"url"]
-    };
+    if (remoteAccount[@"screen_name"]) {
+        user[@"nickname"] = remoteAccount[@"screen_name"];
+    }
+    
+    if (remoteAccount[@"name"]) {
+        user[@"name"] = remoteAccount[@"name"];
+    }
+    
+    if (remoteAccount[@"location"]) {
+        user[@"location"] = remoteAccount[@"location"];
+    }
+    
+    if (avatar) {
+        user[@"image"] = avatar;
+    }
+    
+    if (remoteAccount[@"description"]) {
+        user[@"description"] = remoteAccount[@"description"];
+    }
+    
+    if (profile) {
+        NSString *website = remoteAccount[@"url"] ? remoteAccount[@"url"] : @"";
+        user[@"urls"] = @{
+                          @"Twitter" : profile,
+                          @"Website" : website
+                          };
+    }
+    
     dictionary[@"info"] = user;
     
     return dictionary;
